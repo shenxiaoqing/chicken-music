@@ -3,6 +3,7 @@ import axios from 'axios'
 
 import { commonParams, options } from './config'
 
+// 请求首页轮播图数据的封装，方便调用
 export function getRecommend() {
   const url = "https://c.y.qq.com/musichall/fcgi-bin/fcg_yqqhomepagerecommend.fcg";
   const data = Object.assign({}, commonParams, {

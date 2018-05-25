@@ -1,3 +1,7 @@
+
+// 关于dom操作的封装，解决了兼容问题
+
+// 添加class名
 export function addClass(el, className) {
   if (hasClass(el, className)) {
     return
@@ -6,10 +10,12 @@ export function addClass(el, className) {
   newClass.push(className)
   el.className = newClass.join(' ')
 }
+// 判断是否已存在class名
 export function hasClass(el, className) {
   let reg = new RegExp('(^|\\S)' + className + '(\\s|$)')
   return reg.test(el.className)
 }
+// 获取自定义属性
 export function getData(el, name, val) {
   const prefix = 'data-'
   name = prefix + name
@@ -19,9 +25,9 @@ export function getData(el, name, val) {
     return el.getAttribute(name)
   }
 }
-// export function 
-let elementStyle = document.createElement('div').style
 
+let elementStyle = document.createElement('div').style
+// 解决一些样式的兼容问题，添加浏览器内核前缀
 let vendor = (() => {
   let transformNames = {
     webkit: 'webkitTransform',

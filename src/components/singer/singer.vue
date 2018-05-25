@@ -1,5 +1,6 @@
 <template>
   <div class="singer">
+    <!-- 歌手页 -->
     <list-view @select="selectSinger" :data="singers"></list-view>
     <router-view></router-view>
   </div>
@@ -24,12 +25,14 @@ export default {
     this._getSingerList();
   },
   methods: {
+    // 点击歌手进入歌手详情页
     selectSinger(singer){
       this.$router.push({
         path:'/singer/'+singer.id
       })
       this.setSinger(singer)
     },
+    // 获取歌手数据
     _getSingerList() {
       getSingerList().then(res => {
         if (res.code === ERR_OK) {
@@ -37,6 +40,7 @@ export default {
         }
       });
     },
+    // 计算歌手展示顺序
     _normalizeSinger(list) {
       let map = {
         hot: {

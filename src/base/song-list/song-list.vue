@@ -1,5 +1,6 @@
 <template>
   <div class="song-list">
+    <!-- 歌曲列表组件 -->
     <ul>
       <li 
         @click="selecItem(song,i)"
@@ -25,11 +26,12 @@ export default {
     }
   },
   methods:{
+    // 歌手数据拼接
     getDesc(song){
-      return `${song.singer}。${song.album}`
+      return `${song.singer}-${song.album}`
     },
+    // 点击歌曲，触发$emit事件
     selecItem(item,index){
-      // console.log(item)
       this.$emit('select',item,index)
     }
   }
@@ -47,7 +49,6 @@ export default {
     height 64px
     font-size $font-size-m
     .content
-      // flex 1
       line-height 20px
       overflow hidden
     .name

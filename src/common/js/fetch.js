@@ -1,3 +1,5 @@
+// 针对fetch的封装，使用的时候可以节省代码量
+
 function objToStr(obj) {
   let arr = [];
   for (let key in obj) {
@@ -7,7 +9,6 @@ function objToStr(obj) {
 }
 
 function commonFetch(url, data, method = 'GET', callback) {
-  // callback.beforeEach()
   let initObj = {};
   if (method === 'GET') {
     url = url + '?' + objToStr(data);
@@ -28,10 +29,7 @@ function commonFetch(url, data, method = 'GET', callback) {
     }
   }
 
-  console.log(url)
   return fetch(url, initObj).then((res) => {
-    // callback.afterEach()
-    console.log(res)
     if (res.status >= 400) {
       return res.json().then((error) => {
         return Promise.reject(error);
@@ -41,21 +39,6 @@ function commonFetch(url, data, method = 'GET', callback) {
     }
   })
 }
-// commonFetch('https://c.y.qq.com/musichall/fcgi-bin/fcg_yqqhomepagerecommend.fcg?g_tk=5381&inCharset=utf-8&outCharset=utf-8&notice=0&format=json&platform=h5&uin=0&needNewCode=1&param=jsonCallback', {
-//   g_tk: 5381,
-//   inCharset: 'utf-8',
-//   outCharset: 'utf-8',
-//   notice: 0,
-//   format: 'json',
-//   platform: 'h5',
-//   uin: 0,
-//   needNewCode: 1,
-//   param: 'jsonCallback'
-// }).then((data, fn) => {
-//   console.log(data)
-//   console.log(fn)
-// })
-
 
 export default {
   install(Vue, options) {

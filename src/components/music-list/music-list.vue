@@ -1,5 +1,6 @@
 <template>
   <div class="music-list">
+    <!-- 歌手详情页 -->
     <div class="back" @click="back">
       <i class="icon-back"></i>
     </div>
@@ -24,6 +25,7 @@
       ref="list"
     >
       <div class="song-list-wrapper">
+        <!-- 歌曲列表 -->
         <song-list @select="selectItem" :songs="songs"></song-list>
       </div>
       <div class="loading-container" v-show="!songs.length">
@@ -63,6 +65,7 @@ export default {
     }
   },
   computed: {
+    // 详情页背景
     bgStyle() {
       return `background-image:url(${this.bgImage})`;
     }
@@ -80,11 +83,12 @@ export default {
     scroll(pos){
       this.scrollY=pos.y
     },
+    // 点击左上角返回歌手列表页
     back(){
       this.$router.back()
     },
+    // 点击歌曲播放
     selectItem(item,index){
-      // console.log(item)
       this.selectPlay({
         list:this.songs,
         index
@@ -95,14 +99,13 @@ export default {
     ])
   },
   watch:{
+    // 监听滚动位置
     scrollY(newY){
-      // console.log(transform)
       let translateY = Math.max(this.minTranslateY,newY)
       let zIndex=0
       let scale=1
       let blur=0
       this.$refs.layer.style[transform]=`translate3d(0,${translateY}px,0)`
-      // this.$refs.layer.style['webkitTransform']=`translate3d(0,${translateY}px,0)`
       const percent=Math.abs(newY/this.imageHeight)
       if(newY>0){
         scale=1+percent
@@ -111,7 +114,6 @@ export default {
         blur=Math.min(20*percent,20)
       }
       this.$refs.filter.style[backdrop]=`blur(${blur}px)`
-      // this.$refs.filter.style['webkitBackdrop-filter']=`blur(${blur}px)`
       if(newY<this.minTranslateY){
         zIndex=10
         this.$refs.bgImage.style.paddingTop=0
@@ -124,7 +126,6 @@ export default {
       }
       this.$refs.bgImage.style.zIndex=zIndex
       this.$refs.bgImage.style[transform]=`scale(${scale})`
-      // this.$refs.bgImage.style['webkitTransform']=`scale(${scale})`
     }
   },
   components: {

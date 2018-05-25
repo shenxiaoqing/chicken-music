@@ -13,13 +13,8 @@ const portfinder = require('portfinder')
 const HOST = process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
 
-// const express=require('express')
+// 引入axios用来请求数据
 const axios=require('axios')
-
-// var app=express()
-// var apiRoutes=express.Router()
-// apiRoutes.get()
-
 
 const devWebpackConfig = merge(baseWebpackConfig, {
   module: {
@@ -52,7 +47,9 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       poll: config.dev.poll,
     },
     setup(app){
+      // app发送数据 可以解决部分跨域问题
       app.get('/getDiscList',(req,res)=>{
+        // 用axios请求数据
         axios.get('https://c.y.qq.com/splcloud/fcgi-bin/fcg_get_diss_by_tag.fcg',{
           headers:{
             referer:'https://c.y.qq.com/',

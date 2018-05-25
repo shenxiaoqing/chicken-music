@@ -1,5 +1,4 @@
 import { playMode } from '../common/js/config'
-// console.log(playmode)
 
 const state = {
   singer: {},

@@ -7,9 +7,11 @@
     :probeType="probeType"
     @scroll="scroll"
   >
+  <!-- 歌手列表页 -->
     <ul>
       <li v-for="(group,i) in data" :key="i" ref="listGroup">
         <h2 class="list-group-title">{{group.title}}</h2>
+        <!--首拼相同的歌手列表 -->
         <ul>
           <li @click="selectItem(item)" v-for="(item,j) in group.items" :key="j" class="list-group-item">
             <img class="avatar" v-lazy="item.avatar"/>
@@ -18,6 +20,7 @@
         </ul>
       </li>
     </ul>
+    <!-- 侧边导航栏 -->
     <div class="list-shortcut"
       @touchstart="onShortcutTouchStart"
       @touchmove.stop.prevent="onShortcutTouchMove"
@@ -32,9 +35,11 @@
         >{{v}}</li>
       </ul>
     </div>
+    <!-- 定位title -->
     <div class="list-fixed" ref="fixed" v-show="fixedTitle">
       <h1 class="fixed-title">{{fixedTitle}}</h1>
     </div>
+    <!-- 数据加载时的loading -->
     <div v-show="!data.length" class="loading-container">
       <Loading></Loading>
     </div>
@@ -44,19 +49,22 @@
 <script>
 import Scroll from "base/scroll/scroll";
 import { getData } from "common/js/dom";
-import Loading from 'base/loading/loading'
+import Loading from "base/loading/loading";
+
+// 歌手列表组件
+
 const ANCHRO_HEIGHT = 18;
-const TITLE_HEIGHT=30
+const TITLE_HEIGHT = 30;
 
 export default {
   data() {
     return {
       scrollY: -1,
       currentIndex: 0,
-      diff:-1
+      diff: -1
     };
   },
-  props: {
+  props: {// 接受data数据
     data: {
       type: Array,
       default: []
@@ -73,19 +81,24 @@ export default {
     Loading
   },
   computed: {
+    // 计算侧边导航首字母
     shortcutList() {
       return this.data.map(v => {
         return v.title.substr(0, 1);
       });
     },
-    fixedTitle(){
-      if(this.scrollY>0){
-        return ''
+    // 计算定位title应是哪一个首字母或者类别
+    fixedTitle() {
+      if (this.scrollY > 0) {
+        return "";
       }
-      return this.data[this.currentIndex]?this.data[this.currentIndex].title:''
+      return this.data[this.currentIndex]
+        ? this.data[this.currentIndex].title
+        : "";
     }
   },
   methods: {
+    // 从导航栏touchstart事件，获取touchstart时的坐标
     onShortcutTouchStart(e) {
       let anchorIndex = getData(e.target, "index");
       let firstTouch = e.touches[0];
@@ -93,6 +106,7 @@ export default {
       this.touch.anchorIndex = anchorIndex;
       this._srollTo(anchorIndex);
     },
+    // 导航栏touchmove事件，获取移动的坐标
     onShortcutTouchMove(e) {
       let firstTouch = e.touches[0];
       this.touch.y2 = firstTouch.pageY;
@@ -100,6 +114,7 @@ export default {
       let anchorIndex = parseInt(this.touch.anchorIndex) + delta;
       this._srollTo(anchorIndex);
     },
+    // 侧边栏滚动函数，根据传递的下标，改变歌手列表的位置
     _srollTo(index) {
       if (!index && index !== 0) {
         return;
@@ -110,10 +125,11 @@ export default {
         0
       );
     },
+    // 滚动事件函数
     scroll(pos) {
       this.scrollY = pos.y;
-      // console.log(this.scrollY)
     },
+    // 计算每段歌手列表的高度
     _calculateHeight() {
       this.listHeight = [];
       const list = this.$refs.listGroup;
@@ -125,8 +141,9 @@ export default {
         this.listHeight.push(height);
       }
     },
-    selectItem(item){
-      this.$emit('select',item)
+    // 出发选择函数，传参给歌手详情页
+    selectItem(item) {
+      this.$emit("select", item);
     }
   },
   watch: {
@@ -148,20 +165,22 @@ export default {
         let height2 = listHeight[i + 1];
         if (-newY >= height1 && -newY < height2) {
           this.currentIndex = i;
-          this.diff=height2+newY
+          this.diff = height2 + newY;
           return;
         }
       }
       // 当滚动到底部,且-newY大于最后一个元素的上限
       this.currentIndex = listHeight.length - 2;
     },
-    diff(newVal){
-      let fixedTop=(newVal>0&&newVal<TITLE_HEIGHT)?newVal-TITLE_HEIGHT:0
-      if(this.fixedTop===fixedTop){
-        return
+    // 改变定位title，添加改变时动画
+    diff(newVal) {
+      let fixedTop =
+        newVal > 0 && newVal < TITLE_HEIGHT ? newVal - TITLE_HEIGHT : 0;
+      if (this.fixedTop === fixedTop) {
+        return;
       }
-      this.fixedTop=fixedTop
-      this.$refs.fixed.style.transform='translate3d(0,'+fixedTop+'px,0)'
+      this.fixedTop = fixedTop;
+      this.$refs.fixed.style.transform = "translate3d(0," + fixedTop + "px,0)";
     }
   }
 };
@@ -181,14 +200,15 @@ export default {
 .list-group {
   padding-bottom: 30px;
 }
+
 .list-group-title {
-    height: 30px;
-    line-height: 30px;
-    padding-left: 20px;
-    font-size: $font-size-s;
-    color: $color-text-l;
-    background: $color-hl-bg;
-  }
+  height: 30px;
+  line-height: 30px;
+  padding-left: 20px;
+  font-size: $font-size-s;
+  color: $color-text-l;
+  background: $color-hl-bg;
+}
 
 .list-group-item {
   display: flex;

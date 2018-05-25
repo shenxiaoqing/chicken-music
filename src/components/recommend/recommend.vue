@@ -1,5 +1,6 @@
 <template>
   <div class="recommend">
+    <!-- 首页 -->
     <scroll ref="scroll" :data="discList" class="recommend-content">
       <div>
         <div v-if="recommends.length" class="slider-wrapper">
@@ -52,6 +53,7 @@ export default {
     this._getDiscList();
   },
   methods: {
+    // 获取轮播图数据
     _getRecommend() {
       getRecommend().then(res => {
         if (res.code === ERR_OK) {
@@ -59,6 +61,7 @@ export default {
         }
       });
     },
+    // 获取推荐歌单数据
     _getDiscList() {
       getDiscList().then(res => {
         if (res.code === ERR_OK) {
@@ -66,6 +69,7 @@ export default {
         }
       });
     },
+    // 实现图片懒加载
     loadImage() {
       if (!this.checkLoaded) {
         this.$refs.scroll.refresh();

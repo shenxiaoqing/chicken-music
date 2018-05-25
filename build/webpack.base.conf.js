@@ -34,6 +34,7 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.vue', '.json'],
     alias: {
+      // 配置别名，方便项目中的引用
       'vue$': 'vue/dist/vue.esm.js',
       '@': resolve('src'),
       'common':resolve('src/common'),

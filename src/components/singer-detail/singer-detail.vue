@@ -1,5 +1,6 @@
 <template>
   <transition name="slide">
+    <!-- 歌区列表 -->
     <music-list
       :songs="songs"
       :title="title"
@@ -41,7 +42,6 @@ export default {
       }
       getSingerDetail(this.singer.id).then(res => {
         if (res.code === ERR_OK) {
-          // console.log(res.data.list)
           this.songs=this._nomalLizeSongs(res.data.list)
         }
       });
@@ -54,7 +54,6 @@ export default {
           ret.push(createSong(musicData))
         }
       })
-      // console.log(ret)
       return ret
     }
   },
@@ -66,16 +65,6 @@ export default {
 
 <style scoped lang="stylus">
 @import '~common/stylus/variable.styl';
-
-// .singer-detail {
-//   position: fixed;
-//   z-index: 100;
-//   top: 0px;
-//   left: 0px;
-//   right: 0px;
-//   bottom: 0px;
-//   background: $color-bg;
-// }
 
 .slide-enter-active, .slide-leave-active {
   transition: all 0.3s;

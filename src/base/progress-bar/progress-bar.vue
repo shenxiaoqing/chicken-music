@@ -1,5 +1,6 @@
 <template>
   <div class="progress-bar" ref="progressBar">
+    <!-- 进度条组件 -->
     <div class="bar-inner">
       <div class="progress" ref="progress"></div>
       <div class="progress-btn-wrapper" ref="progressBtn">

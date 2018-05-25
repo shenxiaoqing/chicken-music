@@ -61,7 +61,7 @@ exports.cssLoaders = function (options) {
     less: generateLoaders('less'),
     sass: generateLoaders('sass', { indentedSyntax: true }),
     scss: generateLoaders('sass'),
-    stylus: generateLoaders('stylus'),
+    stylus: generateLoaders('stylus'),// 添加可编译styl格式loader
     styl: generateLoaders('stylus')
   }
 }

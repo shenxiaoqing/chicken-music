@@ -26,8 +26,5 @@ export default {
 </script>
 
 <style lang="styl">
-/* div {
-  color: #f00;
-  font-size: 20px;
-} */
+
 </style>

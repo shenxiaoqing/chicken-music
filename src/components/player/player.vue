@@ -1,5 +1,6 @@
 <template>
   <div class="player" v-show="playlist.length>0">
+    <!-- 播放页 -->
     <transition name="normal"
       @enter="enter"
       @after-enter="afterEnter"
@@ -30,6 +31,7 @@
           <div class="progress-wrapper">
             <span class="time time-l">{{format(currentTime)}}</span>
             <div class="progress-bar-wrapper">
+              <!-- 进度条 -->
               <progress-bar :present="present"></progress-bar>
             </div>
             <span class="time time-r">{{format(currentSong.duration)}}</span>
@@ -121,6 +123,7 @@ export default {
     open() {
       this.setFullScreen(true);
     },
+    // 添加进入动画效果
     enter(el, done) {
       const { x, y, scale } = this._getPosAndScale();
       let animation = {
@@ -148,6 +151,7 @@ export default {
       animations.unregisterAnimation("move");
       this.$refs.cdWrapper.style.animation = "";
     },
+    // 添加离开时动画
     leave(el, done) {
       this.$refs.cdWrapper.style.transition = "all 0.4s";
       const { x, y, scale } = this._getPosAndScale();
@@ -160,6 +164,7 @@ export default {
       this.$refs.cdWrapper.style.transition = "";
       this.$refs.cdWrapper.style.transform = "";
     },
+    // 计算动画需要的位置缩放比例等
     _getPosAndScale() {
       const targetWidth = 40;
       const paddingLeft = 40;
@@ -175,9 +180,11 @@ export default {
         scale
       };
     },
+    // 播放暂停
     togglePlaying() {
       this.setPlayingState(!this.playing);
     },
+    // 下一首
     next() {
       if (!this.songReady) {
         return;
@@ -192,6 +199,7 @@ export default {
       }
       this.songReady = false;
     },
+    // 上一首
     prev() {
       if (!this.songReady) {
         return;
@@ -215,6 +223,7 @@ export default {
     updateTime(e) {
       this.currentTime = e.target.currentTime;
     },
+    // 计算时间格式
     format(interval) {
       interval = interval | 0;
       const minute = (interval / 60) | 0;
@@ -462,7 +471,6 @@ export default {
   }
 
   .progress-bar-wrapper {
-    // flex: 1;
     width: 80%;
   }
 }
@@ -472,8 +480,6 @@ export default {
   align-items: center;
   justify-content: space-around;
 
-  // box-sizing: border-box;
-  // padding: 0 10px;
   .icon {
     flex: 1;
     color: $color-theme;
@@ -534,7 +540,6 @@ export default {
 }
 
 .mini-player {
-  // box-sizing: border-box;
   display: flex;
   align-items: center;
   position: fixed;
@@ -545,7 +550,6 @@ export default {
   height: 60px;
   background: $color-hl-bg;
 
-  // padding: 0 130px 0 70px;
   &.mini-enter-active, &.mini-leave-active {
     transition: all 0.4s;
   }
@@ -555,9 +559,6 @@ export default {
   }
 
   .img {
-    // position: absolute;
-    // top: 10px;
-    // left: 20px;
     flex: 0 0 40px;
     width: 40px;
     padding: 0 10px 0 20px;
@@ -583,11 +584,8 @@ export default {
     line-height: 20px;
     overflow: hidden;
 
-    // width: 100%;
-    // height: 100%;
     .name {
       margin-bottom: 2px;
-      // line-height: 20px;
       no-wrap();
       font-size: $font-size-m;
       color: $color-text-d;
@@ -610,18 +608,12 @@ export default {
     align-items: center;
     justify-content: space-between;
 
-    // flex: 0 0 30px;
-    // width: 30px;
-    // padding: 0 10px;
     .icon-play-mini, .icon-pause-mini, .icon-playlist {
       font-size: 30px;
       color: $color-theme-d;
     }
 
     .icon-play-mini, .icon-pause-mini {
-      // position: absolute;
-      // left: 0;
-      // top: 0;
       font-size: 36px;
     }
   }

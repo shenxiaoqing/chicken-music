@@ -1,21 +1,25 @@
-# vue-music
+# 基于Vue.js的一款音乐播放器
+-------
 
-> A Vue.js project
+### 项目介绍
+项目是基于Vue.js的移动端的音乐播放器，总体是vue-cli + webpack实现了整体框架的搭建，数据是基于QQ音乐，做到了跨域请求
 
-## Build Setup
+#### 视图
+* 推荐页
+* 歌手页
+  * 歌手详情
+* 排行
+* 搜索
+* 歌曲播放
 
-``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
-```
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+#### src目录结构
+> api → 数据抓取
+> base → 公共基础组件
+> common → 公共代码
+  >> fonts
+  >> image
+  >> js
+  >> stylus 
+> components → 公共组件
+> router → 项目路由
+> store → 状态管理

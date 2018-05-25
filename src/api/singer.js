@@ -2,6 +2,7 @@ import jsonp from '../common/js/jsonp'
 
 import { commonParams, options } from './config'
 
+// 请求歌手列表数据的封装，方便调用
 export function getSingerList(){
   const url ='https://c.y.qq.com/v8/fcg-bin/v8.fcg'
   const data = Object.assign({}, commonParams, {
@@ -31,6 +32,5 @@ export function getSingerDetail(singerId){
     singermid: singerId,
     g_tk:1664029744
   })
-  // console.log(singerId)
   return jsonp(url, data, options)
 }

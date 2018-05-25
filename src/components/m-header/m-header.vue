@@ -1,5 +1,6 @@
 <template>
   <div class="m-header">
+      <!-- header组件 -->
       <div class="icon"></div>
       <h1 class="text">Chicken Music</h1>
   </div>
@@ -7,7 +8,6 @@
 
 <script>
 export default {
-    // name: 'm-header'
 }
 </script>
 

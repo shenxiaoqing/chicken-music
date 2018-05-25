@@ -1,5 +1,6 @@
 <template>
   <div class="slider" ref="slider">
+    <!-- 轮播组件 -->
     <div class="slider-group" ref="slider-group">
       <slot></slot>
     </div>
@@ -41,6 +42,7 @@ export default {
     }
   },
   mounted(){
+    // 初始化轮播
     setTimeout(() => {
       this._setSliderWidth()
       this._initDots()
@@ -49,6 +51,7 @@ export default {
         this._play()
       }
     }, 20)
+    // 计算轮播图大小
     window.addEventListener('resize',()=>{
       if(!this.slider){
         return
@@ -58,6 +61,7 @@ export default {
     })
   },
   methods:{
+    // 计算轮播图大小
     _setSliderWidth(isResize){
       this.children=this.$refs['slider-group']['children']
       let width=0
@@ -73,9 +77,11 @@ export default {
       }
       this.$refs['slider-group'].style.width=width+'px';
     },
+    // 初始化轮播图焦点
     _initDots(){
       this.dots=new Array(this.children.length);
     },
+    // 初始化轮播
     _initSider(){
       this.slider=new BScroll(this.$refs.slider,{
         scrollX:true,
@@ -108,6 +114,7 @@ export default {
       }, this.interval);
     }
   },
+  // 关闭轮播组件时，清除延时器
   destroyed(){
     clearTimeout(this.timer)
   }

@@ -1,5 +1,6 @@
 <template>
   <div class="loading">
+    <!-- loading组件 -->
     <img width="24" height="24" src="./loading.gif" alt="">
     <p class="desc">{{title}}</p>
   </div>
